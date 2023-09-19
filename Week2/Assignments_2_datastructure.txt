@@ -1,0 +1,568 @@
+*BAI TAP CHINH*
+
+-------------------------------------------------
+BAI 1
+
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int length;
+    cin >> length;
+
+    int arr[length];
+    for (int i = 0; i < length; i++)
+    {
+        cin >> arr[i];
+    }
+
+    int soCapBangNhau = 0;
+    for (int i = 0; i < length; i++)
+    {
+        for (int j = i + 1; j < length; j++)
+        {
+            if (arr[i] == arr[j])
+            {
+                soCapBangNhau++;
+            }
+        }
+    }
+
+    cout << soCapBangNhau << endl;
+
+    return 0;
+}
+
+-------------------------------------------------
+BAI 2
+
+#include <iostream>
+
+using namespace std;
+
+class Node{
+    public:
+        int data;
+        Node* next;
+
+        Node(int data){
+            this->data = data;
+            this->next = NULL;
+        }
+};
+
+class LinkedList{
+    public:
+        Node* head;
+        Node* tail;
+
+        LinkedList(){
+            this->head = NULL;
+            this->tail = NULL;
+        }
+        
+        void insertNodeAtPosition(int data, int position){
+            Node* insertedNode = new Node(data);
+            if (position == 0){
+                insertedNode->next = this->head;
+                this->head = insertedNode;
+                return;
+            }
+            Node* nodeBeforeinsertedNode = this->head;
+            int index = 1;
+            while (index < position){
+                nodeBeforeinsertedNode = nodeBeforeinsertedNode->next;
+                index++;
+            }
+            insertedNode->next = nodeBeforeinsertedNode->next;
+            nodeBeforeinsertedNode->next = insertedNode;
+        }
+
+        void deleteNodeAtPosition(int position){
+            if (position == 0){
+                Node* nodeToDelete = this->head;
+                this->head = this->head->next;
+                delete nodeToDelete;
+                return;
+            }
+            Node* nodeBeforeNodeToDelete = this->head;
+            int index = 1;
+            while (index < position){
+                nodeBeforeNodeToDelete = nodeBeforeNodeToDelete->next;
+                index++;
+            }
+            Node* nodeToDelete = nodeBeforeNodeToDelete->next;
+            nodeBeforeNodeToDelete->next = nodeToDelete->next;
+            delete nodeToDelete;
+        }
+
+        void printLinkedList(){
+            Node* currentNode = this->head;
+            while (currentNode != NULL){
+                cout << currentNode->data << " ";
+                currentNode = currentNode->next;
+            }
+            cout << endl;
+        }
+};
+
+int main()
+{
+    LinkedList linkedList;
+    int numberOfOperation;
+    cin >> numberOfOperation;
+    for (int i = 0; i < numberOfOperation; i++)
+    {
+        string operation;
+        cin >> operation;
+        if (operation == "insert"){
+            int position, data;
+            cin >> position >> data;
+            linkedList.insertNodeAtPosition(data, position);
+        }
+        else if (operation == "delete"){
+            int position;
+            cin >> position;
+            linkedList.deleteNodeAtPosition(position);
+        }
+    }
+    linkedList.printLinkedList();
+    return 0;
+}
+
+-------------------------------------------------
+BAI 3
+
+#include <iostream>
+
+using namespace std;
+
+class doublyLinkedListNode{
+    public:
+        int data;
+        doublyLinkedListNode *next;
+        doublyLinkedListNode *prev;
+
+        doublyLinkedListNode(int data) {
+            this->data = data;
+            this->next = nullptr;
+            this->prev = nullptr;
+        }
+};
+
+class doublyLinkedList{
+    public:
+        doublyLinkedListNode *head;
+        doublyLinkedListNode *tail;
+
+        doublyLinkedList() {
+            this->head = nullptr;
+            this->tail = nullptr;
+        }
+
+        doublyLinkedList(int arr[], int length) {
+            this->head = nullptr;
+            this->tail = nullptr;
+            for (int i = 0; i < length; i++) {
+                this->insertNodeAtTail(arr[i]);
+            }
+        }
+
+        void insertNodeAtTail(int data) {
+            doublyLinkedListNode *newNode = new doublyLinkedListNode(data);
+            if (this->head == nullptr) {
+                this->head = newNode;
+                this->tail = newNode;
+                return;
+            }
+            this->tail->next = newNode;
+            newNode->prev = this->tail;
+            this->tail = newNode;
+        }
+
+        int count_triplets(){
+            doublyLinkedListNode *checkNode = this->head->next;
+            int count = 0;
+            while (checkNode != this->tail){
+                if (checkNode->data + checkNode->prev->data + checkNode->next->data == 0){
+                    count++;
+                }
+                checkNode = checkNode->next;
+            }
+            return count;
+        }
+};
+
+int main()
+{
+    int length;
+    cin >> length;
+    int arr[length];
+    for (int i = 0; i < length; i++)
+    {
+        cin >> arr[i];
+    }
+    doublyLinkedList *list = new doublyLinkedList(arr, length);
+    cout << list->count_triplets() << endl;
+    return 0;
+}
+
+-------------------------------------------------
+BAI 4
+
+#include <iostream>
+
+using namespace std;
+
+class Node{
+    public:
+        int data;
+        Node* next;
+
+        Node(int data){
+            this->data = data;
+            this->next = NULL;
+        }
+};
+
+class Queue{
+    public:
+        Node* head;
+        Node* tail;
+
+        Queue(){
+            this->head = NULL;
+            this->tail = NULL;
+        }
+
+        void enqueue(int data){
+            Node* newNode = new Node(data);
+            if (this->head == NULL){
+                this->head = newNode;
+                this->tail = newNode;
+                return;
+            }
+            this->tail->next = newNode;
+            this->tail = newNode;
+        }
+
+        void dequeue(){
+            Node* nodeToDelete = this->head;
+            this->head = this->head->next;
+            delete nodeToDelete;
+        }
+
+        int peek(){
+            if (this->head == NULL){
+                return -1;
+            }
+            return this->head->data;
+        }
+
+        void print(){
+            Node* currentNode = this->head;
+            while (currentNode != NULL){
+                cout << currentNode->data << " ";
+                currentNode = currentNode->next;
+            }
+            cout << endl;
+        }
+};
+
+int main()
+{
+    int numberOfOperations;
+    cin >> numberOfOperations;
+    Queue queue;
+    for (int i = 0; i < numberOfOperations; i++)
+    {
+        string operation;
+        cin >> operation;
+        if (operation == "enqueue")
+        {
+            int data;
+            cin >> data;
+            queue.enqueue(data);
+        }
+        else if (operation == "dequeue")
+        {
+            queue.dequeue();
+        }
+    }
+    queue.print();
+    return 0;
+}
+
+-------------------------------------------------
+BAI 5
+
+#include <iostream>
+
+using namespace std;
+
+class Node{
+    public:
+        int data;
+        Node* next;
+
+        Node(int data){
+            this->data = data;
+            this->next = NULL;
+        }
+};
+
+class Stack{
+    public:
+        Node* top;
+
+        Stack(){
+            this->top = NULL;
+        }
+
+        void push(int data){
+            Node* newNode = new Node(data);
+            if (this->top == NULL){
+                this->top = newNode;
+                return;
+            }
+            newNode->next = this->top;
+            this->top = newNode;
+        }
+
+        void pop(){
+            Node* nodeToDelete = this->top;
+            this->top = this->top->next;
+            delete nodeToDelete;
+        }
+
+        int peek(){
+            if (this->top == NULL){
+                return -1;
+            }
+            return this->top->data;
+        }
+
+        void print(){
+            Node* currentNode = this->top;
+            while (currentNode != NULL){
+                cout << currentNode->data << " ";
+                currentNode = currentNode->next;
+            }
+            cout << endl;
+        }
+
+        void printReverse(){
+            Stack stack;
+            Node* currentNode = this->top;
+            while (currentNode != NULL){
+                stack.push(currentNode->data);
+                currentNode = currentNode->next;
+            }
+            stack.print();
+        }
+};
+
+int main()
+{
+    Stack stack;
+    int numberOfOperations;
+    cin >> numberOfOperations;
+    for (int i = 0; i < numberOfOperations; i++){
+        string operation;
+        cin >> operation;
+        if (operation == "push"){
+            int data;
+            cin >> data;
+            stack.push(data);
+        }
+        else if (operation == "pop"){
+            stack.pop();
+        }
+    }
+    stack.printReverse();
+    return 0;
+}
+
+*BAI TAP THEM*
+
+-------------------------------------------------
+STACK BY 2 QUEUE
+
+#include <iostream>
+
+using namespace std;
+
+class Node{
+    public:
+        int data;
+        Node* next;
+
+        Node(int data){
+            this->data = data;
+            this->next = NULL;
+        }
+};
+
+class Queue{
+    public:
+        Node* head;
+        Node* tail;
+
+        Queue(){
+            this->head = NULL;
+            this->tail = NULL;
+        }
+
+        void enqueue(int data){
+            Node* newNode = new Node(data);
+            if (this->head == NULL){
+                this->head = newNode;
+                this->tail = newNode;
+                return;
+            }
+            this->tail->next = newNode;
+            this->tail = newNode;
+        }
+
+        void dequeue(){
+            Node* nodeToDelete = this->head;
+            this->head = this->head->next;
+            delete nodeToDelete;
+        }
+
+        int peek(){
+            if (this->head == NULL){
+                return -1;
+            }
+            return this->head->data;
+        }
+
+        void print(){
+            Node* currentNode = this->head;
+            while (currentNode != NULL){
+                cout << currentNode->data << " ";
+                currentNode = currentNode->next;
+            }
+            cout << endl;
+        }
+};
+
+class Stack{
+    Queue queue1;
+    Queue queue2;
+
+    Stack(){
+        this->queue1 = Queue();
+        this->queue2 = Queue();
+    }
+
+    void push(int data){
+        if (this->queue1.head == NULL){
+            this->queue1.enqueue(data);
+            return;
+        }
+        // Move all elements from queue1 to queue2
+        Node* currentNode = this->queue1.head;
+        while (currentNode != NULL){
+            this->queue2.enqueue(currentNode->data);
+            currentNode = currentNode->next;
+        }
+        // Enqueue new element to queue1
+        this->queue1.enqueue(data);
+        // Move all elements from queue2 back to queue1
+        currentNode = this->queue2.head;
+        while(currentNode != NULL){
+            this->queue1.enqueue(currentNode->data);
+            currentNode = currentNode->next;
+        }
+        //Empty queue2
+        this->queue2.head = NULL;
+        this->queue2.tail = NULL;
+    }
+
+    void pop(){
+        this->queue1.dequeue();
+    }
+};
+
+-------------------------------------------------
+QUEUE BY 2 STACK
+
+#include <iostream>
+
+using namespace std;
+
+class Node{
+    public:
+        int data;
+        Node* next;
+
+        Node(int data){
+            this->data = data;
+            this->next = NULL;
+        }
+};
+
+class Stack{
+    public:
+        Node* top;
+
+        Stack(){
+            this->top = NULL;
+        }
+
+        void push(int data){
+            Node* newNode = new Node(data);
+            if (this->top == NULL){
+                this->top = newNode;
+                return;
+            }
+            newNode->next = this->top;
+            this->top = newNode;
+        }
+
+        void pop(){
+            Node* nodeToDelete = this->top;
+            this->top = this->top->next;
+            delete nodeToDelete;
+        }
+};
+
+class Queue{
+    Stack stack1;
+    Stack stack2;
+
+    Queue(){
+        this->stack1 = Stack();
+        this->stack2 = Stack();
+    }
+
+    void enqueue(int data){
+        if (this->stack1.top == NULL){
+            this->stack1.push(data);
+            return;
+        }
+        // Move all elements from stack1 to stack2
+        Node* currentNode = this->stack1.top;
+        while(currentNode != NULL){
+            this->stack2.push(currentNode->data);
+            currentNode = currentNode->next;
+        }
+        // Push new element to stack1
+        this->stack1.push(data);
+        //Move all elements from stack2 back to stack1
+        currentNode = this->stack2.top;
+        while(currentNode != NULL){
+            this->stack1.push(currentNode->data);
+            currentNode = currentNode->next;
+        }
+        // Empty stack2
+        this->stack2.top = NULL;
+    }
+
+    void dequeue(){
+        this->stack1.pop();
+    }
+};

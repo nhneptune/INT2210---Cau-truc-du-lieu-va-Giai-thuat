@@ -1,0 +1,89 @@
+Bai 1:
+    - Sắp xếp các hàm sau theo thứ tự tăng dần Big O: 2^10, 2^logn, 3n + 100logn, 4n, nlogn, 4nlogn + 2n, n^2 + 10n, n^3, 2^n
+
+Bai 2:
+    Algorithnms 1:
+    procedure luythua (n: integer number)
+        long luythua := 1;
+        for (i:= 1 to n) luythua = luythua*2;
+        return luythua;
+
+     => Complexity: n
+
+    Algorithnms 2:
+    procedure luythua (n: integer number)
+        if n = 0 then return 1;
+        return 2*luythua(n - 1);
+
+    => Complexity: n
+        
+Bai 3:
+    Queue: head, tail, arr[n];
+
+    procedure enqueue(x: integer number)
+        if tail = n - 1 then end;
+        tail++;
+        arr[tail] = x;
+        if head = -1 then head++;
+
+    => Complexity: 1
+
+    procedure dequeue()
+        if head = -1 then end;
+        head++;
+
+    => Complexity: 1
+
+Bai 4:
+    Queue: head, tail (Node)
+
+    procedure enqueue(x: integer number)
+        t = new Node(x);
+        if head = null then head = tail = t
+                            end;
+        tail->next = t;
+        tail := t;
+
+    => Complexity: 1
+
+    procedure dequeue()
+        if (head = null) end;
+        t := head;
+        head:= head->next;
+        delete t;   
+    
+    => Complexity: 1
+
+Bai 5:
+    Stack: top, arr[size];
+
+    procedure push(x: integer number)
+        if top = size - 1 then end;
+        top++;
+        arr[top] := x;
+    
+    => Complexity: 1
+
+    procedure pop()
+        if top = -1 then end;
+        top--;
+
+    => Complexity: 1
+
+Bai 6:
+    Stack: top (Node);
+    procedure push(x: integer number)
+        t := new Node(x);
+        if top:= null then top := t;
+        t->next := top;
+        top := t;
+
+    => Complexity: 1
+
+    procedure pop()
+        if top:= null then end;
+        t := top;
+        top := top->next;
+        delete t;
+
+    => Complexity: 1

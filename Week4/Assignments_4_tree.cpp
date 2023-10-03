@@ -62,4 +62,48 @@ class binarySearchTree{
             fatherOfInsertedNode->rightChild = insertedNode;
         }
     }
+
+    void deleteMax(Node* root) {
+        Node *fatherOfDeletedNode = root;
+        while (fatherOfDeletedNode->rightChild->rightChild != NULL) {
+            fatherOfDeletedNode = fatherOfDeletedNode->rightChild;
+        }
+        Node *deletedNode = fatherOfDeletedNode->rightChild;
+        if (deletedNode->leftChild == NULL) {
+            delete deletedNode;
+        } else {
+            fatherOfDeletedNode->rightChild = deletedNode->leftChild;
+            delete deletedNode;
+        }
+    }
+
+    void deleteMin(Node* root) {
+        Node* fatherOfDeletedNode = root;
+        while (fatherOfDeletedNode->leftChild->leftChild != NULL) {
+            fatherOfDeletedNode = fatherOfDeletedNode->leftChild;
+        }
+        Node *deletedNode = fatherOfDeletedNode->leftChild;
+        if (deletedNode->rightChild == NULL) {
+            delete deletedNode;
+        } else {
+            fatherOfDeletedNode->leftChild = deletedNode->rightChild;
+            delete deletedNode;
+        }
+    }
+};
+
+class maxHeapTree{
+    int arr[100];
+    int size = 0;
+
+    maxHeapTree(){
+        for (int i = 0; i < 100; i++){
+            arr[i] = 0;
+        }
+    }
+
+    int removeMax() {
+        int max = arr[0];
+        
+    }
 };

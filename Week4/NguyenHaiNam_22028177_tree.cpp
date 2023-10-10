@@ -89,14 +89,9 @@ public:
     // Hàm tìm Node có giá trị data
     Node* search(int data) {
         if (this->root == NULL) return NULL;
-        else {
-            Node* currentNode = this->root;
-            while (currentNode != NULL) {
-                if (currentNode->data == data) return currentNode;
-                else if (currentNode->data > data) currentNode = currentNode->leftChild;
-                else currentNode = currentNode->rightChild;
-            }
-            return NULL;
+        Node* currentNode = this->root->firstChild;
+        while (currentNode != NULL) {
+            
         }
     };
 };
